@@ -1,15 +1,17 @@
 import math
 
-
+# For creating the Matrix class
 class Matrix:
+
+# For the initializing function.  Defining rows and columns of generated rows and columns.
     def __init__(self, array):
-        #self.array = LISTOFLIST
         self.array = array
         self.cols = len(self.array[0])
         self.rows = len(array)
         self.shape = (self.cols, self.rows)
         self.size = (self.cols * self.rows)
 
+# For making sure that row dimensions are consistent in the matrices.
         for i in self.array:
             len_array = len(i)
             if len_array == self.cols:
@@ -17,6 +19,7 @@ class Matrix:
             else:
                 raise ValueError("rows dimensions are inconsistent")
 
+# For representing the matrix in a string.
     def __repr__(self):
         matrix_s = ""
         for j in range(self.rows):
@@ -26,6 +29,7 @@ class Matrix:
             matrix_s += "  |\n"
         return matrix_s
 
+# For adding the two matrices element wise.
     def __add__(self, other):
         if (self.rows != other.rows) or (self.cols != other.cols):
             raise ValueError("dimensions should be the same size")
@@ -37,6 +41,7 @@ class Matrix:
                     matadd[j].append(self.array[j][k] + other.array[j][k])
             return Matrix(matadd)
 
+# For subtracting the two matrices element wise.
     def __sub__(self, other):
         if (self.rows != other.rows) or (self.cols != other.cols):
             raise ValueError("dimensions should be the same size")
@@ -48,6 +53,7 @@ class Matrix:
                     matsub[j].append(self.array[j][k] - other.array[j][k])
             return Matrix(matsub)
 
+# For multiplying the two matrices element wise.
     def __mul__(self, other):
         if (self.rows != other.rows) or (self.cols != other.cols):
             raise ValueError("dimension mismatch! matrices should be the same size")
@@ -59,6 +65,7 @@ class Matrix:
                     mat_mul[j].append(self.array[j][k] * other.array[j][k])
             return Matrix(mat_mul)
 
+# For multiplying the matrices together to create a new matrix.
     def __matmul__(self, other):
         if len(self.array[0]) != len(other.array):
             raise ValueError("inner dimension should be the same size")
@@ -76,6 +83,7 @@ class Matrix:
                 C.append(c)
         return Matrix(C)
 
+# For the trace of a square matrix.
     def trace(self):
         trace = 0
         if self.cols != self.rows:
@@ -85,6 +93,7 @@ class Matrix:
                 trace += self.array[j][j]
             return (trace)
 
+# For creating the vector norm of a 1D matrix.
     def norm(self):
         v_norm = 0
         vector = 0
@@ -101,6 +110,7 @@ class Matrix:
         else:
             raise ValueError("matrix should be 1D")
 
+# For reshaping a list into a matrix.
     def reshape(self, new_rows, new_cols):
         if self.cols*self.rows != new_rows*new_cols:
             raise(ValueError("Matrix size should not change through reshaping"))
@@ -121,27 +131,6 @@ class Matrix:
             self.cols = new_cols
             self.shape = (new_rows, new_cols)
             self.size = new_cols*new_rows
-
-
-#Matrix_A = Matrix([[1, 2, 3], [3, 4, 5], [1, 2, 3]])
-#Matrix_D = Matrix([[6, 2, 3], [7, 4, 5], [2, 3, 5]])
-#Matrix_E = [1, 2, 3, 4, 5, 6]
-#C = Matrix_A + Matrix_B
-#Z = Matrix_A - Matrix_B
-#Y = Matrix_A * Matrix_B
-#X = Matrix_A @ Matrix_B
-#print(C)
-#print(Z)
-#print(Y)
-#print(X)
-#print(Matrix_A.trace())
-#print(Matrix_E.v_norm())
-#print(Matrix_A)
-#Matrix_E.reshape()
-#print(Matrix_A)
-#print(Matrix_B)
-#print(Matrix_E)
-
 
 if __name__ == "__main__":
     print()
